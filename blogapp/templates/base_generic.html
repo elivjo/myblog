@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-  {% block title %}<title>Django DIY Blog</title>{% endblock %}
+  {% block title %}<title>Django  Blog</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,14 +22,15 @@
   {% block sidebar %}
   <ul class="sidebar-nav">
     <li><a href="{% url 'index' %}">Home</a></li>
-    <li>All blogs</a></li>
-    <li>All bloggers</a></li>
+    <li>All Posts</a></li>
+    <li>All Bloggers</a></li>
   </ul>
  
   {% endblock %}
   </div>
 <div>
-  {% block content %}{% endblock %}
+ 
+   {% block content %}{% endblock %}
   
 </div>
 </div>

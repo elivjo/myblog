@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+
+    {% if post_list %}
+    <ul>
+
+
+      {% for post in post_list %}
+      <li>
+         <a href="#">{{ post.title }}</a> ({{post.post_date}})
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>There are no posts</p>
+    {% endif %}       
+{% endblock %}
