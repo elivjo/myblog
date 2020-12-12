@@ -23,8 +23,14 @@ class PostListByAuthor(generic.ListView):
         target_author = get_object_or_404(BlogAuthor, pk = id) 
         return Post.objects.filter(author=target_author)
     
-    
+class PostDetailView(generic.DetailView):
+
+    model= Post
         
+class BloggerListView(generic.ListView):
+    model = BlogAuthor
+    paginate_by = 5
+    
 
 
 
