@@ -1,21 +1,20 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>All Posts</h1>
+    <h1>All Posts</h1>
 
     {% if post_list %}
     <ul>
 
-
       {% for post in post_list %}
       <li>
-         <a href="#">{{ post.title }}</a> ({{post.post_date}})
+        <a href="{% url 'post-detail' post.author.pk%}"> {{ post.title }}</a> ({{post.post_date}}) — <a href="{% url 'posts-author' post.author.pk %}">{{ post.author }}</a>
       </li>
       {% endfor %}
 
     </ul>
 
     {% else %}
-      <p>There are no posts</p>
+      <p>There are no blogs.</p>
     {% endif %}       
 {% endblock %}

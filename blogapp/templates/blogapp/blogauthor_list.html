@@ -8,7 +8,7 @@
 
       {% for author in blogauthor_list %}
       <li>
-        <a href="{% url 'posts-author' author.pk %}">{{ author }}</a>
+        <a href="{% url 'posts-author' author.pk %}">{{ author }}</a> - ({{author.bio_details}})
       </li>
       {% endfor %}
 

@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 
 class BlogAuthor(models.Model):
     """ info reth nje blogeri """
-    bloger = models.OneToOneField(User, on_delete = models.SET_NULL, null = True) # e njejte si foreignkey por mer nje vlere unike dhe te lidh me modelin User te krijuar nga django
+    author = models.OneToOneField(User, on_delete = models.SET_NULL, null = True) # e njejte si foreignkey por mer nje vlere unike dhe te lidh me modelin User te krijuar nga django
     bio_details = models.TextField(max_length= 500, help_text = "enter your bio details")
     
     class Meta:
-        ordering= ["bloger"]
+        ordering= ["author"]
     
     def __str__(self):
-        return self.bloger.username
+        return self.author.username
 
 class Post(models.Model):
     """ permbajtja e nje posti ne blog """

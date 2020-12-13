@@ -5,8 +5,7 @@
     <h1>{{ post.title }}</h1>
     <p><strong>Post date</strong> {{ post.post_date }}</p>
     <p><strong>Author:</strong> <a href="{% url 'posts-author' post.author.pk %}">{{ post.author }}</a></p>
-    <p><strong>Description:</strong></p>
-    <p style="white-space:pre-wrap;">{{ post.content }}</p>
+    <p><strong>Description:</strong>  <br>  {{post.content}} </br></p>
  
 
     </div>

@@ -1,21 +1,21 @@
 {% extends "base_generic.html" %}
 
-{% block content %}
-    <h1>Blogger: {{author}}</h1>
+  {% block content %}
+    <h1>Blogger: {{blogger}}</h1>
     
     <h3>Bio</h3>
     
-    <p>{{author.bio_details}}</p>
+    <p>{{blogger.bio_details}}</p>
     
     
 
-    {% if post_list %}
-    <h3>Post list</h3>
+    {% if post_list  %}
+    <h3>Posts list</h3>
     <ul>
 
       {% for post in post_list %}
       <li>
-        <a href="#">{{ post.title }}</a> ({{post.post_date}})</a>
+        <a href="{% url 'post-detail' post.author.pk %}">{{ post.title }}</a> ({{post.post_date}})
       </li>
       {% endfor %}
 
@@ -24,4 +24,5 @@
     {% else %}
       <p>This blogger hasn't posted anything yet.</p>
     {% endif %}       
+  
 {% endblock %}

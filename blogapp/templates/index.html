@@ -3,6 +3,9 @@
 {% block content %}
 <h1>Blog Home</h1>
 
-<p>Welcome to <em>My First Blog</em></p>
-
+<p>The Blog has the following record counts:</p>
+  <ul>
+    <li><strong>Posts:</strong><a href="{% url 'posts' %}"> <u> {{num_posts }} </u></a></li>
+    <li><strong>Authors:</strong> <a href="{% url 'bloggers' %}">  <u>{{ num_authors }}</u></a></li>
+  </ul>
 {% endblock %}

@@ -17,16 +17,23 @@
 
 <div class="container-fluid">
 
-<div class="row">
+ <div class="row">
   <div class="col-sm-2">
   {% block sidebar %}
-  <ul class="sidebar-nav">
-    <li><a href="{% url 'index' %}">Home</a></li>
-    <li>All Posts</a></li>
-    <li>All Bloggers</a></li>
+  <ul class="sidebar-nav" style="margin-top:5px;">
+    <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
+    <li><a href="{% url 'posts' %}"><strong>All Posts</strong></a></li>
+    <li><a href="{% url 'bloggers' %}"><strong>All Bloggers</strong></a></li>
   </ul>
- 
-  {% endblock %}
+  <ul class="sidebar-nav">
+    {% if user.is_authenticated %}
+      <li>User: {{ user.get_username }}</li>
+      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+    {% else %}
+      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+    {% endif %} 
+   </ul>
+{% endblock %}
   </div>
 <div>
  
