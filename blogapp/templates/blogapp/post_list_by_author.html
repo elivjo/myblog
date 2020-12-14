@@ -9,20 +9,20 @@
     
     
 
-    {% if post_list  %}
-    <h3>Posts list</h3>
-    <ul>
+      {% if post_list  %}
+       <h3>Posts list</h3>
+        <ul>
 
-      {% for post in post_list %}
-      <li>
-        <a href="{% url 'post-detail' post.author.pk %}">{{ post.title }}</a> ({{post.post_date}})
-      </li>
-      {% endfor %}
+         {% for post in post_list %}
+          <li>
+            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a> ({{post.post_date}})
+          </li>
+        {% endfor %}
 
-    </ul>
+        </ul>
 
-    {% else %}
-      <p>This blogger hasn't posted anything yet.</p>
-    {% endif %}       
+      {% else %}
+       <p>This blogger hasn't posted anything yet.</p>
+      {% endif %}       
   
 {% endblock %}

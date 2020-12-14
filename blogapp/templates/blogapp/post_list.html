@@ -8,7 +8,7 @@
 
       {% for post in post_list %}
       <li>
-        <a href="{% url 'post-detail' post.author.pk%}"> {{ post.title }}</a> ({{post.post_date}}) — <a href="{% url 'posts-author' post.author.pk %}">{{ post.author }}</a>
+        <a href="{% url 'post-detail' post.id %}"> {{ post.title }}</a> ({{post.post_date}}) — <a href="{% url 'posts-author' post.author.pk %}">{{ post.author }}</a>
       </li>
       {% endfor %}
 

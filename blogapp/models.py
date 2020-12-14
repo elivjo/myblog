@@ -37,13 +37,19 @@ class Comment(models.Model):
     comment = models.TextField(max_length=1000, help_text="Enter comment about post here.")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True) #nje koment ka vetem nje autor, nje autor mund te kete shume komente
     post_date= models.DateTimeField(auto_now_add = True)
-    blog = models.ForeignKey(Post, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Post, on_delete=models.CASCADE, null= True)
 
     class Meta:
         ordering=["post_date"]
 
     def __str__(self):
-        return self.comment[:75] + '...'
+
+        len_title=75
+        if len(self.comment)>len_title:
+            titlestring=self.comment[:len_title] + '...'
+        else:
+            titlestring=self.comment
+        return titlestring
     
 
 
