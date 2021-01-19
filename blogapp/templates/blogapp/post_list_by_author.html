@@ -5,17 +5,17 @@
     
     <h3>Bio</h3>
     
-    <p>{{blogger.bio_details}}</p>
+    <p><i>{{blogger.bio_details}}</i></p>
     
     
 
       {% if post_list  %}
-       <h3>Posts list</h3>
-        <ul>
+       <h3 style="margin-left: 11em;">Posts list</h3>
+        <ul >
 
          {% for post in post_list %}
-          <li>
-            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a> ({{post.post_date}})
+          <li style="margin-left: 17em;">
+            <a  href="{% url 'post-detail' post.id %}">{{ post.title }}</a> ({{post.post_date}})
           </li>
         {% endfor %}
 
