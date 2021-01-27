@@ -3,6 +3,10 @@ from django.db import models
 # Create your models here.
 from datetime import date
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+
+
 
 class BlogAuthor(models.Model):
     """ info reth nje blogeri """
@@ -22,7 +26,8 @@ class Post(models.Model):
     content = models.TextField(max_length=1000, help_text = "Enter your content here")
     post_date = models.DateField(default=date.today)
     image = models.ImageField(null= True, blank= True, upload_to = "images/") # imazhet ruhen ne direktorine media/images kur ngarkohen nga perodruesi 
-    likes = models.ManyToManyField(User, related_name="blog_post")
+    like = GenericRelation('Like')
+    is_banned = models.BooleanField(default= False)
     
     class Meta: 
         """ Renditja nga postimi nga me i hershem"""
@@ -33,7 +38,7 @@ class Post(models.Model):
         return self.title
     
     def total_likes(self):
-        return self.likes.count()
+        return self.like.count()
 
 class Comment(models.Model):
     """ modeli i komenteve ne nje post """
@@ -69,4 +74,23 @@ class PostReport(models.Model):
     def __str__(self):
         return  self.author.username + " - " + self.comment_report[:10] + " " + "..."
 
+class Like(models.Model):
+    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    
+    content_type = models.ForeignKey(
+        ContentType,
+        blank=True,
+        null=True,
+        related_name='object_like',
+        on_delete=models.CASCADE)
+    
+    object_id = models.CharField(max_length=50, blank=True, null=True)
+    
+    action_object = GenericForeignKey('content_type', 'object_id')
+    # like = {}
+    # like['user'] = User.objects.last()
+    # like['object'] = Post.objects.last()
+    # Like.objects.create(**like)
 
+    # like['action_object'] = Post.objects.last()

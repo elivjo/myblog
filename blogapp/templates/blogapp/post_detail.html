@@ -2,14 +2,22 @@
 
 {% block content %}
 {% load static %}
-{% if messages %}
 
-
+  <div  style="margin-left:19em;margin-top:2px; margin-right:1000px">
+  {% if messages %}
+  <ul class="messages" timeout="5">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  </div>
+  <div style="margin-left:19em;margin-top:2px">
     <h1>{{ post.title }}</h1>
     <p><strong>Post date:</strong> {{ post.post_date }}</p>
     <p><strong>Author:</strong> <a href="{% url 'posts-author' post.author.pk%}">{{ post.author }}</a></p>
-    <p style="margin-left:19em;"><strong>Description:</strong>  <br>  {{post.content}} </br></p>
-    
+    <p style=""><strong>Description:</strong>  <br>  {{post.content}} </br></p>
+  </div>
     <br/>
     <form method="POST" enctype="multipart/form-data">
       {%csrf_token%}
@@ -25,12 +33,13 @@
    
     <form style="margin-left:19em;margin-top:30px" action="{%url 'like_post' post.pk %}" method="POST">
       {% csrf_token %}
-      {% if liked %}
-       <button type="submit", name ="post.id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button> -{{total_likes}} Likes
-      {%else%}
-       <button type="submit", name ="post.id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button> -{{total_likes}} Likes
+      
+      {% if  liked %}
+      <button type="submit", name ="post.id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button> -{{total_likes}} Likes
+      {% else %}
+      <button type="submit", name ="post.id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button> -{{total_likes}} Likes
       {% endif %}
-    </form>
+    </form> 
     <br/> <br/>
     
     <div style="margin-left:40em;margin-top:-70px">
@@ -41,6 +50,8 @@
     {% endif %} 
     </div>
     <br/>
+
+
     <div style="margin-left:19em;margin-top:30px">
         <i><h4>Comments</h4></i>
         
