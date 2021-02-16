@@ -13,6 +13,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 # Create your views here.
 
 def LikeView(request, pk):
+    """ metoda e kryerjes te funksionit Like/Unlike """
     post = get_object_or_404(Post, id= request.POST.get('post.id'))
     liked = False
     
@@ -33,6 +34,7 @@ def LikeView(request, pk):
 
 @login_required
 def index(request):
+    """ Home page """
     num_posts_unbanned = Post.objects.filter(is_banned=False).count()
     #num_posts_banned = Post.objects.filter(is_banned=True).count()
 
@@ -49,6 +51,7 @@ def index(request):
     
 
 class PostListView(LoginRequiredMixin, generic.ListView):
+    """ Renditja e posteve sipas Nr te likeve duke filluar nga posti me nr me te madh te like """
 
     model = Post
     #queryset = Post.objects.filter(is_banned=False)
@@ -60,6 +63,7 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     
 
 class PostListByAuthorView(LoginRequiredMixin, generic.ListView):
+    """ renditja e posteve sipas autorve te tyre """ 
     
     model = Post
     template_name ='blogapp/post_list_by_author.html'
@@ -67,7 +71,7 @@ class PostListByAuthorView(LoginRequiredMixin, generic.ListView):
     #metodat override: get_queryset dhe get_context_data
     
     def get_queryset(self):
-        """lista e posteve nga nje autor"""
+        """lista e posteve te renditura sipas numrit Like dhe nqs posti nuk eshte ban"""
         
         id = self.kwargs['pk']
         target_author=get_object_or_404(BlogAuthor, pk = id)
@@ -82,12 +86,13 @@ class PostListByAuthorView(LoginRequiredMixin, generic.ListView):
     
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(LoginRequiredMixin,generic.DetailView):
+    """ Detajet e nje Posti """
 
     model = Post
     
     def get_context_data(self, **kwargs):
-        
+    
         context = super(PostDetailView, self).get_context_data(**kwargs)
 
         post = get_object_or_404(Post, pk = self.kwargs['pk'])
@@ -98,16 +103,18 @@ class PostDetailView(generic.DetailView):
             liked = True
         
         context['total_likes']= total_likes
-        context['liked']= liked
+        context['liked'] = liked
         return context
    
 
 
 class BloggerListView(LoginRequiredMixin, generic.ListView):
+    """ renditja e Autorve te blogut """
     model = BlogAuthor
 
 
 class PostCommentCreateView(LoginRequiredMixin, CreateView):
+    """ Klasa e funksioneve te komentit """
    
     model = Comment
     fields = ['comment',]
@@ -135,11 +142,12 @@ class PostCommentCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostReportCreateView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
+    """ Klasa e funksioneve te Repotit te postit """
    
     model = PostReport
     fields = ['comment_report',]
     success_url = '/success/'
-    success_message = "Your report was created successfully"
+    success_message = "Your report  created successfully"
 
     def get_context_data(self,*args, **kwargs):
         """ shtimi i te dhenave te nje posti ne templatin postreport_form.html """
