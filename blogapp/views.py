@@ -71,7 +71,7 @@ class PostListByAuthorView(LoginRequiredMixin, generic.ListView):
     #metodat override: get_queryset dhe get_context_data
     
     def get_queryset(self):
-        """lista e posteve te renditura sipas numrit Like dhe nqs posti nuk eshte ban"""
+        """lista e posteve nga nje autor"""
         
         id = self.kwargs['pk']
         target_author=get_object_or_404(BlogAuthor, pk = id)
